@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <title>binbin-task2</title>
+</head>
+<body>
+<h3>污染城市列表</h3>
+<style>
+    ul{
+        list-style: none;
+    }
+</style>
+<ul id="aqi-list">
+    <!--
+    <li>第一名：福州（样例），10</li>
+      <li>第二名：福州（样例），10</li> -->
+</ul>
+
+<script type="text/javascript">
+    var aqiData = [
+        ["北京", 90],
+        ["上海", 60],
+        ["福州", 10],
+        ["广州", 50],
+        ["成都", 80],
+        ["西安", 100]
+    ];
+    (function () {
+        /*
+         在注释下方编写代码
+         遍历读取aqiData中各个城市的数据
+         将空气质量指数大于60的城市显示到aqi-list的列表中
+         */
+
+        var ul=document.getElementById("aqi-list");
+        var list=aqiData.filter(function(item,index,array){
+            return(item[1]>=60);
+        });
+        list.sort(function(a,b){
+            return b[1]-a[1];
+        });
+        var a = '';
+        for(var i = 0; i < list.length; i++){
+
+            a += '<li>'+ '第' + (i+1) +'名'+ ':'+ list[i] + '</li>';
+        }
+        ul.innerHTML = a;
+
+
+    })();
+</script>
+
+</body>
+</html>
+var rebs = bs.sort(function (a,b) {
+a-b;
+})
+var a ='';
+for(var i = 0; i < rebs.length; i++){
+a += '<li>'+ '第' + (i+1) +'名'+ ':'+ list[i] + '</li>';
+}
