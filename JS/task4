@@ -15,25 +15,30 @@
         margin:5px;
         cursor:pointer;
     }
-
+    #box{
+        width: 980px;
+        margin: 0 auto;
+    }
 </style>
 <body>
-<input type="text" id="inp" value="">
-<input type="submit" value="左侧入">
-<input type="submit" value="右侧入">
-<input type="submit" value="左侧出">
-<input type="submit" value="右侧出">
-<ul id="nav"></ul>
+<div id="box">
+    <input type="text" id="inp" value="">
+    <input type="submit" value="左侧入">
+    <input type="submit" value="右侧入">
+    <input type="submit" value="左侧出">
+    <input type="submit" value="右侧出">
+    <ul id="nav"></ul>
+</div>
 <script>
     /*
-    模拟一个队列，队列的每个元素是一个数字，初始队列为空
-    有一个input输入框，以及4个操作按钮
-    点击"左侧入"，将input中输入的数字从左侧插入队列中；
-    点击"右侧入"，将input中输入的数字从右侧插入队列中；
-    点击"左侧出"，读取并删除队列左侧第一个元素，并弹窗显示元素中数值；
-    点击"右侧出"，读取并删除队列又侧第一个元素，并弹窗显示元素中数值；
-    点击队列中任何一个元素，则该元素会被从队列中删除
-    */
+     模拟一个队列，队列的每个元素是一个数字，初始队列为空
+     有一个input输入框，以及4个操作按钮
+     点击"左侧入"，将input中输入的数字从左侧插入队列中；
+     点击"右侧入"，将input中输入的数字从右侧插入队列中；
+     点击"左侧出"，读取并删除队列左侧第一个元素，并弹窗显示元素中数值；
+     点击"右侧出"，读取并删除队列又侧第一个元素，并弹窗显示元素中数值；
+     点击队列中任何一个元素，则该元素会被从队列中删除
+     */
 
     var leftin = document.querySelector("input[value='左侧入']");
     var rightin = document.querySelector("input[value='右侧入']");
@@ -51,9 +56,9 @@
             alert('请输入数字');
         }
         else if(!isNaN(inp.value)){  //输入为数字时
-           var li = document.createElement('li');
-           li.innerHTML = inp.value;
-           nav.insertBefore(li,nav.firstChild);
+            var li = document.createElement('li');
+            li.innerHTML = inp.value;
+            nav.insertBefore(li,nav.firstChild);
         }
         else {    //输入不是数字时
             alert('请输入正确的数字格式');
@@ -77,11 +82,10 @@
 
     //左侧出
     leftout.addEventListener('click',function () {
-        //console.log();
         if(nav.childNodes.length > 0) {
             //先得到ul的第一个li再confirm,最后确定后删除
             var fir = nav.firstChild.innerText;
-           // console.log(nav.firstChild);  //<li></li>
+            // console.log(nav.firstChild);  //<li></li>
             confirm('确定删除' + fir);
             nav.removeChild(nav.firstChild);
         }
@@ -92,35 +96,38 @@
 
     //右侧出
     rightout.addEventListener('click',function () {
-       console.log(nav.childNodes);
-       if(nav.childNodes.length > 0){
-           var las = nav.lastChild.innerText;
-           confirm('确定删除' + las);
-           nav.removeChild(nav.lastChild);
-       }
-       else {
-           alert('右侧出完')
-       }
+        console.log(nav.childNodes);
+        if(nav.childNodes.length > 0){
+            var las = nav.lastChild.innerText;
+            confirm('确定删除' + las);
+            nav.removeChild(nav.lastChild);
+        }
+        else {
+            alert('右侧出完')
+        }
 
     })
 
     //点击ul中任何li，该li会被从队列中删除
-    nav.addEventListener('click',function () {
-        if(event.target.nodeName.toLowerCase() == "li"){
+    nav.addEventListener('click',function (e) {
+        e = e || window.event;
+        e.target = e.target || e.srcElement;
+        if(e.target.nodeName.toLowerCase() == "li"){
             nav.removeChild(event.target);
-            //console.log(event.target);<li>1</li>
-            //target 事件属性可返回事件的目标节点（触发该事件的节点)
+            //console.log(event.target);  <li>1</li>
+            //target 事件属性可返回事件的目标节点（触发该事件的节点)  
         }
     })
 
 
-/*
-* //避免childNodes返回除节点以外其他的值，使用下面两行代码
- if(confirm("该值为"+liList[0].innerHTML+"你确定要删除？")){
- liList[0].remove();
- }else{
- alert("取消删除")
- }*/
+    /*
+     避免childNodes返回除节点以外其他的值，使用下面两行代码
+     if(confirm("该值为"+liList[0].innerHTML+"你确定要删除？")){
+     liList[0].remove();
+     }else{
+     alert("取消删除")
+     }
+     */
 
 
 
